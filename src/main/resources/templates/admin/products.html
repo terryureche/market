@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Products</h2>
+        <form th:action="@{/admin/products/create}" method="get">
+            <button class="btn btn-md btn-warning btn-block" type="Submit">Create</button>
+        </form>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>CompanyName</th>
+                <th>Description</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody th:each="product : ${productsList}">
+                <tr>
+                    <td th:text="${product.getId()}"></td>
+                    <td th:text="${product?.getUser()?.getUsername()}"></td>
+                    <td th:text="${product.getDescription()}"></td>
+                    <td th:text="${product.getName()}"></td>
+                    <td th:text="${product.getPrice()}"></td>
+                    <td th:text="${product.getQuantity()}"></td>
+                    <td>
+                        <form autocomplete="off" method="get"
+                              action="#"  class="container" style="width:100px"
+                              th:action="@{|/admin/products/edit/${product.getId()}|}">
+                            <button class="btn btn-md btn-warning btn-block" type="Submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form autocomplete="off" method="get"
+                              action="#"  class="container" style="width:100px"
+                              th:action="@{|/admin/products/delete/${product.getId()}|}">
+                            <button class="btn btn-md btn-warning btn-block" type="Submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <form class="container" th:action="@{/admin/home}" method="get">
+        <button class="btn btn-md btn-warning btn-block" type="Submit">Back</button>
+    </form>
+</body>
+</html>

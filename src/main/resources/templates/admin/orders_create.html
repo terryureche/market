@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Create Order</h2>
+    <form th:object="${order}" autocomplete="off" method="post" action="#" th:action="@{/admin/orders/create}">
+        <div class="form-group has-feedback">
+            <label for="select_products">Select products</label>
+            <select th:field="*{product}" id="select_products" class="form-control" multiple>
+                    <option th:each="product : ${products}"
+                            th:value="${product.getId()}"
+                            th:text="${product.getName()}">
+
+                    </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="order_date">Order Date</label>
+            <input type="date" th:field="*{order_date}" min="0" step="any" class="form-control" id="order_date">
+        </div>
+        <div class="form-group">
+            <label for="shipping_date">Shipping Date</label>
+            <input type="date" th:field="*{shipping_date}" min="0" step="any" class="form-control" id="shipping_date">
+        </div>
+        <button type="submit" class="btn btn-md  btn-primary btn-block">Create</button>
+
+    </form>
+    <form th:action="@{/admin/orders}" method="get">
+        <button class="btn btn-md btn-warning btn-block" type="Submit">Back</button>
+    </form>
+</div>
+
+</body>
+</html>

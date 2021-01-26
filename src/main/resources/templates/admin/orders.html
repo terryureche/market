@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Orders</h2>
+    <form th:action="@{/admin/orders/create}" method="get">
+        <button class="btn btn-md btn-warning btn-block" type="Submit">Create</button>
+    </form>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CompanyName</th>
+            <th>Order Date</th>
+            <th>Shipping Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody th:each="order : ${ordersList}">
+        <tr>
+            <td th:text="${order.getId()}"></td>
+            <td th:text="${order?.getUser()?.getUsername()}"></td>
+            <td th:text="${order.getOrder_date()}"></td>
+            <td th:text="${order.getShipping_date()}"></td>
+            <td>
+                <form autocomplete="off" method="get"
+                      action="#"  class="container" style="width:100px"
+                      th:action="@{|/admin/orders/edit/${order.getId()}|}">
+                    <button class="btn btn-md btn-warning btn-block" style="width: 100px;" type="Submit">View/Edit</button>
+                </form>
+            </td>
+            <td>
+                <form autocomplete="off" method="get"
+                      action="#"  class="container" style="width:100px"
+                      th:action="@{|/admin/orders/delete/${order.getId()}|}">
+                    <button class="btn btn-md btn-danger btn-block" style="width: 100px;" type="Submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<form class="container" th:action="@{/admin/home}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Back</button>
+</form>
+</body>
+</html>
